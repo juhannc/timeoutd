@@ -94,6 +94,17 @@ def test_function_name(use_signals):
     assert func_name.__name__ == "func_name"
 
 
+def test_timeout_custom_on_timeout(use_signals):
+    def on_timeout():
+        return 0
+
+    @timeout(seconds=TIMEOUT, on_timeout=on_timeout, use_signals=use_signals)
+    def f():
+        time.sleep(2)
+
+    assert f() == 0
+
+
 def test_timeout_pickle_error():
     """Test that when a pickle error occurs a timeout error is raised."""
 
@@ -130,3 +141,11 @@ def test_timeout_custom_exception_with_message():
 
     with pytest.raises(RuntimeError, match=EXCEPTION_MESSAGE):
         f()
+
+
+def test_timeout_exception_is_of_wrong_type():
+    with pytest.raises(TypeError):
+
+        @timeout(seconds=TIMEOUT, exception_type=str)
+        def f():
+            time.sleep(2)
