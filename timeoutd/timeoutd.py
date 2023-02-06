@@ -175,10 +175,7 @@ class _Timeout:  # pylint: disable=too-many-instance-attributes
         if self.__process.is_alive():
             self.__process.terminate()
 
-        if self.__on_timeout is not None:
-            return self.__on_timeout()
-        else:
-            _raise_exception(self.__exception_type, self.__exception_message)
+        _raise_exception(self.__exception_type, self.__exception_message)
 
     @property
     def ready(self):
