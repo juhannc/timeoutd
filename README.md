@@ -7,51 +7,79 @@
 
 ## Installation
 
-From source code:
-
-```shell
-pip install -e .
-```
-
-From pypi:
+From [PyPI](https://pypi.org/project/timeoutd/):
 
 ```shell
 pip install timeoutd
 ```
 
+From source code:
+
+```shell
+git clone https://github.com/juhannc/timeoutd.git
+pip install -e .
+```
+
 ## Usage
 
 ```python
-    import time
-    import timeoutd
+import time
+import timeoutd
 
-    @timeoutd.timeout(5)
-    def mytest():
-        print("Start")
-        for i in range(1,10):
-            time.sleep(1)
-            print(f"{i} seconds have passed")
+@timeoutd.timeout(5)
+def mytest():
+    print("Start")
+    for i in range(1, 10):
+        time.sleep(1)
+        print(f"{i} seconds have passed")
 
-    if __name__ == '__main__':
-        mytest()
+if __name__ == '__main__':
+    mytest()
 ```
 
 Specify an alternate exception to raise on timeout:
 
 ```python
-    import time
-    import timeoutd
+import time
+import timeoutd
 
-    @timeoutd.timeout(5, exception_type=StopIteration)
-    def mytest():
-        print("Start")
-        for i in range(1,10):
-            time.sleep(1)
-            print(f"{i} seconds have passed")
+@timeoutd.timeout(5, exception_type=StopIteration)
+def mytest():
+    print("Start")
+    for i in range(1, 10):
+        time.sleep(1)
+        print(f"{i} seconds have passed")
 
-    if __name__ == '__main__':
-        mytest()
+if __name__ == '__main__':
+    mytest()
 
+```
+
+You can also specify a function to be called on timeout instead of raising an exception:
+
+```python
+import time
+import timeoutd
+
+def add_two_numbers(i: int, j: int | None = None):
+    if j is None:
+        j = 0
+    print(f"The sum of {i = } and {j = } is {i + j}")
+
+@timeoutd.timeout(
+    5,
+    on_timeout=add_two_numbers,
+    on_timeout_args=(1,),
+    on_timeout_kwargs={"j": 2}
+)
+def mytest():
+    print("Start")
+    for i in range(1, 10):
+        time.sleep(1)
+        print(f"{i} seconds have passed")
+
+if __name__ == '__main__':
+    mytest()
 ```
 
 ### Multithreading
@@ -65,18 +93,18 @@ There is alternative timeout strategy for this case - by using multiprocessing.
 To use it, just pass `use_signals=False` to the timeout decorator function:
 
 ```python
-    import time
-    import timeoutd
+import time
+import timeoutd
 
-    @timeoutd.timeout(5, use_signals=False)
-    def mytest():
-        print "Start"
-        for i in range(1,10):
-            time.sleep(1)
-            print("{} seconds have passed".format(i))
+@timeoutd.timeout(5, use_signals=False)
+def mytest():
+    print "Start"
+    for i in range(1, 10):
+        time.sleep(1)
+        print("{} seconds have passed".format(i))
 
-    if __name__ == '__main__':
-        mytest()
+if __name__ == '__main__':
+    mytest()
 ```
 
 _Warning:_
