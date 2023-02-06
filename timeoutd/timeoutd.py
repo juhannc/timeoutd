@@ -24,6 +24,7 @@ def _raise_exception(exception: type, exception_message: str | None):
 
 def timeout(
     seconds: float | None = None,
+    on_timeout: Callable | None = None,
     *,
     use_signals: bool = True,
     exception_type: type = TimeoutError,
@@ -36,6 +37,10 @@ def timeout(
         This adds some flexibility to the usage: you can disable timing
         out depending on the settings.
     :type seconds: float
+    :param on_timeout: optional function to call when the timeout is
+        reached instead of raising an exception. If None is passed,
+        the default behavior is to raise a TimeoutError exception.
+    :type on_timeout: Callable
     :param use_signals: flag indicating whether signals should be used
         for timing function out or the multiprocessing.
         When using multiprocessing, timeout granularity is limited to
@@ -86,6 +91,7 @@ def timeout(
         def new_mt_function(*args, **kwargs):
             timeout_wrapper = _Timeout(
                 function=function,
+                on_timeout=on_timeout,
                 exception_type=exception_type,
                 exception_message=exception_message,
                 limit=seconds,
@@ -133,6 +139,7 @@ class _Timeout:  # pylint: disable=too-many-instance-attributes
         """Initialize instance in preparation for being called."""
         self.__limit = limit
         self.__function = function
+        self.__on_timeout = on_timeout
         self.__exception_type = exception_type
         self.__exception_message = exception_message
         self.__name__ = function.__name__
@@ -168,6 +175,8 @@ class _Timeout:  # pylint: disable=too-many-instance-attributes
         if self.__process.is_alive():
             self.__process.terminate()
 
+        if self.__on_timeout is not None:
+            return self.__on_timeout()
         else:
             _raise_exception(self.__exception_type, self.__exception_message)
 
