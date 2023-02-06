@@ -1,11 +1,9 @@
 # timeoutd
 
-[![Build
-Status](https://travis-ci.org/pnpnpn/timeout-decorator.svg?branch=master)](https://travis-ci.org/pnpnpn/timeout-decorator)
-[![Pypi
-Status](https://badge.fury.io/py/timeout-decorator.svg)](https://badge.fury.io/py/timeout-decorator)
-[![Coveralls
-Status](https://coveralls.io/repos/pnpnpn/timeout-decorator/badge.png?branch=master)](https://coveralls.io/r/pnpnpn/timeout-decorator)
+![pytest](https://github.com/juhannc/timeoutd/actions/workflows/pytest.yml/badge.svg)
+[![Pypi Status](https://badge.fury.io/py/timeoutd.svg)](https://badge.fury.io/py/timeoutd)
+[![codecov](https://codecov.io/gh/juhannc/timeoutd/branch/main/graph/badge.svg)](https://codecov.io/gh/juhannc/timeoutd)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ba14c01e22ad0343af8c/maintainability)](https://codeclimate.com/github/juhannc/timeoutd/maintainability)
 
 ## Installation
 

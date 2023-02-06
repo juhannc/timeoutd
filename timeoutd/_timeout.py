@@ -31,6 +31,18 @@ class _Timeout:  # pylint: disable=too-many-instance-attributes
     add_timeout function defined above. Wrapping a function allows
     asynchronous calls to be made and termination of execution after a
     timeout has passed.
+
+    :param function: function to wrap
+    :type function: Callable
+    :param exception_type: exception to raise when the timeout is
+        reached.
+    :type exception_type: type
+    :param exception_message: optional message to pass to the exception
+        when the timeout is reached.
+    :type exception_message: str
+    :param limit: optional time limit in seconds or fractions of a
+        second. If None is passed, no timeout is applied.
+    :type limit: float
     """
 
     def __init__(

@@ -105,6 +105,55 @@ def test_timeout_custom_on_timeout(use_signals):
     assert f() == 0
 
 
+def test_timeout_custom_on_timeout_with_args(use_signals):
+    def on_timeout(i, j):
+        return i + j
+
+    @timeout(
+        seconds=TIMEOUT,
+        on_timeout=on_timeout,
+        use_signals=use_signals,
+        on_timeout_args=(1, 2),
+    )
+    def f():
+        time.sleep(2)
+
+    assert f() == 3
+
+
+def test_timeout_custom_on_timeout_with_kwargs(use_signals):
+    def on_timeout(i=0, j=1):
+        return i + j
+
+    @timeout(
+        seconds=TIMEOUT,
+        on_timeout=on_timeout,
+        use_signals=use_signals,
+        on_timeout_kwargs={"i": 1, "j": 2},
+    )
+    def f():
+        time.sleep(2)
+
+    assert f() == 3
+
+
+def test_timeout_custom_on_timeout_with_args_and_kwargs(use_signals):
+    def on_timeout(i, j=1):
+        return i + j
+
+    @timeout(
+        seconds=TIMEOUT,
+        on_timeout=on_timeout,
+        use_signals=use_signals,
+        on_timeout_args=(1,),
+        on_timeout_kwargs={"j": 2},
+    )
+    def f():
+        time.sleep(2)
+
+    assert f() == 3
+
+
 def test_timeout_pickle_error():
     """Test that when a pickle error occurs a timeout error is raised."""
 

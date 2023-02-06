@@ -14,6 +14,8 @@ def timeout(
     use_signals: bool = True,
     exception_type: type = TimeoutError,
     exception_message: str | None = None,
+    on_timeout_args: tuple | None = None,
+    on_timeout_kwargs: dict | None = None,
 ) -> Callable:
     """Add a timeout parameter to a function and return it.
 
@@ -37,6 +39,14 @@ def timeout(
     :type exception_type: type
     :param exception_message: optional message to pass to the exception
         when the timeout is reached.
+    :param on_timeout_args: optional arguments to pass to the on_timeout
+        function.
+    :type on_timeout_args: tuple
+    :param on_timeout_kwargs: optional keyword arguments to pass to the
+        on_timeout function.
+    :type on_timeout_kwargs: dict
+
+    :return: wrapped function
 
     :raises: TimeoutError if time limit is reached
 
@@ -65,6 +75,8 @@ def timeout(
             ),
             on_timeout=on_timeout,
             exception_type=exception_type,
+            on_timeout_args=on_timeout_args,
+            on_timeout_kwargs=on_timeout_kwargs,
         )
 
     return decorate
