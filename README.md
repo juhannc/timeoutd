@@ -1,9 +1,11 @@
 # timeoutd
 
 ![pytest](https://github.com/juhannc/timeoutd/actions/workflows/pytest.yml/badge.svg)
-[![Pypi Status](https://badge.fury.io/py/timeoutd.svg)](https://badge.fury.io/py/timeoutd)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/juhannc/timeoutd/main.svg)](https://results.pre-commit.ci/latest/github/juhannc/timeoutd/main)
 [![codecov](https://codecov.io/gh/juhannc/timeoutd/branch/main/graph/badge.svg)](https://codecov.io/gh/juhannc/timeoutd)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ba14c01e22ad0343af8c/maintainability)](https://codeclimate.com/github/juhannc/timeoutd/maintainability)
+
+[![Pypi Status](https://badge.fury.io/py/timeoutd.svg)](https://badge.fury.io/py/timeoutd)
 
 ## Installation
 
