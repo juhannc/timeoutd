@@ -1,5 +1,6 @@
 """Timeout decorator tests."""
 import time
+from datetime import datetime, timedelta
 
 import pytest
 
@@ -86,6 +87,93 @@ def test_timeout_ok(use_signals):
     f()
 
 
+def test_timeout_with_only_args(use_signals):
+    @timeout(TIMEOUT, use_signals=use_signals)
+    def f():
+        time.sleep(0.2)
+
+    with pytest.raises(TimeoutError):
+        f()
+
+
+def test_timeout_ok_with_only_args(use_signals):
+    @timeout(TIMEOUT, use_signals=use_signals)
+    def f():
+        time.sleep(TIMEOUT / 2)
+
+    f()
+
+
+def test_timeout_with_datetime_object(use_signals):
+    @timeout(limit=datetime.now() + timedelta(0, TIMEOUT), use_signals=use_signals)
+    def f():
+        time.sleep(0.2)
+
+    with pytest.raises(TimeoutError):
+        f()
+
+
+def test_timeout_ok_with_datetime_object(use_signals):
+    @timeout(limit=datetime.now() + timedelta(0, TIMEOUT), use_signals=use_signals)
+    def f():
+        time.sleep(TIMEOUT / 2)
+
+    f()
+
+
+def test_timeout_with_timedelta_object(use_signals):
+    @timeout(limit=timedelta(0, TIMEOUT), use_signals=use_signals)
+    def f():
+        time.sleep(0.2)
+
+    with pytest.raises(TimeoutError):
+        f()
+
+
+def test_timeout_ok_with_timedelta_object(use_signals):
+    @timeout(limit=timedelta(0, TIMEOUT), use_signals=use_signals)
+    def f():
+        time.sleep(TIMEOUT / 2)
+
+    f()
+
+
+def test_timeout_with_hms_tuple(use_signals):
+    @timeout(hours=0, minutes=0, seconds=TIMEOUT, use_signals=use_signals)
+    def f():
+        time.sleep(0.2)
+
+    with pytest.raises(TimeoutError):
+        f()
+
+
+def test_timeout_with_seconds(use_signals):
+    @timeout(seconds=TIMEOUT, use_signals=use_signals)
+    def f():
+        time.sleep(0.2)
+
+    with pytest.raises(TimeoutError):
+        f()
+
+
+def test_timeout_with_minutes(use_signals):
+    @timeout(minutes=TIMEOUT / 60, use_signals=use_signals)
+    def f():
+        time.sleep(0.2)
+
+    with pytest.raises(TimeoutError):
+        f()
+
+
+def test_timeout_with_hours(use_signals):
+    @timeout(hours=TIMEOUT / 3600, use_signals=use_signals)
+    def f():
+        time.sleep(0.2)
+
+    with pytest.raises(TimeoutError):
+        f()
+
+
 def test_function_name(use_signals):
     @timeout(seconds=0.2, use_signals=use_signals)
     def func_name():
@@ -154,9 +242,9 @@ def test_timeout_custom_on_timeout_with_args_and_kwargs(use_signals):
     assert f() == 3
 
 
+# fmt: off
 def test_timeout_pickle_error():
     """Test that when a pickle error occurs a timeout error is raised."""
-
     @timeout(seconds=TIMEOUT, use_signals=False)
     def f():
         time.sleep(0.1)
@@ -168,6 +256,7 @@ def test_timeout_pickle_error():
 
     with pytest.raises(TimeoutError):
         f()
+# fmt: on
 
 
 def test_timeout_custom_exception_message():
