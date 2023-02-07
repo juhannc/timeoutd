@@ -2,15 +2,20 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timedelta
 from typing import Callable
 
+from timeoutd.converters import time_to_seconds
 from timeoutd.wrappers import _exception_handler, _signaler
 
 
 def timeout(
-    seconds: float | None = None,
-    on_timeout: Callable | None = None,
+    limit: float | datetime | timedelta | None = None,
     *,
+    seconds: float | None = None,
+    minutes: float | None = None,
+    hours: float | None = None,
+    on_timeout: Callable | None = None,
     use_signals: bool = True,
     exception_type: type = TimeoutError,
     exception_message: str | None = None,
@@ -19,15 +24,29 @@ def timeout(
 ) -> Callable:
     """Add a timeout parameter to a function and return it.
 
-    :param seconds: optional time limit in seconds or fractions of a
-        second. If None is passed, no timeout is applied.
+    :param limit: optional time limit in either seconds (or fractions of
+        it) or a datetime object with a specified timeout date. If one
+        wants to specify a timeout in minutes, hours, and seconds, the
+        seconds, minutes, and hours parameters can be used.
+        If neither is passed, no timeout is applied but if both a limit
+        and a set of hours, minutes, and seconds is provided, the limit
+        will be used.
         This adds some flexibility to the usage: you can disable timing
         out depending on the settings.
-    :type seconds: float
+    :type limit: float | datetime | None
     :param on_timeout: optional function to call when the timeout is
         reached instead of raising an exception. If None is passed,
         the default behavior is to raise a TimeoutError exception.
-    :type on_timeout: Callable
+    :type on_timeout: Callable | None
+    :param seconds: optional time limit in seconds or fractions of a
+        second. See the `limit` parameter for more information.
+    :type seconds: float | None
+    :param minutes: optional time limit in minutes or fractions of a
+        minute. See the `limit` parameter for more information.
+    :type minutes: float | None
+    :param hours: optional time limit in hours or fractions of an hour.
+        See the `limit` parameter for more information.
+    :type hours: float | None
     :param use_signals: flag indicating whether signals should be used
         for timing function out or the multiprocessing.
         When using multiprocessing, timeout granularity is limited to
@@ -55,6 +74,10 @@ def timeout(
     """
     if not issubclass(exception_type, Exception):
         raise TypeError("exception_type must be a subclass of Exception")
+
+    seconds = time_to_seconds(
+        limit=limit, seconds=seconds, minutes=minutes, hours=hours
+    )
 
     def decorate(function: Callable) -> Callable:
         if on_timeout is None:

@@ -24,8 +24,12 @@ pip install -e .
 
 ## Usage
 
+The `timeoutd` module provides a decorator that can be used to limit the execution time of a function.
+The decorator takes a single argument, the number of seconds or a specific date (as a datetime object) after which the function should be terminated.
+
 ```python
 import time
+
 import timeoutd
 
 @timeoutd.timeout(5)
@@ -39,10 +43,67 @@ if __name__ == '__main__':
     mytest()
 ```
 
-Specify an alternate exception to raise on timeout:
+The `timeout` decorator allows for multiple different ways to specify the timeout, for example with a datetime object:
 
 ```python
 import time
+import datetime
+
+import timeoutd
+
+@timeoutd.timeout(datetime.datetime.now() + datetime.timedelta(0, 5))
+def mytest():
+    print("Start")
+    for i in range(1, 10):
+        time.sleep(1)
+        print(f"{i} seconds have passed")
+
+if __name__ == '__main__':
+    mytest()
+```
+
+It also take a `timedelta` object:
+
+```python
+import time
+import datetime
+
+import timeoutd
+
+@timeoutd.timeout(datetime.timedelta(0, 5))
+def mytest():
+    print("Start")
+    for i in range(1, 10):
+        time.sleep(1)
+        print(f"{i} seconds have passed")
+
+if __name__ == '__main__':
+    mytest()
+```
+
+But it can also take a delta in form of hours, minutes, and seconds via the kwargs:
+
+```python
+import time
+
+import timeoutd
+
+@timeoutd.timeout(hours=0, minutes=0, seconds=5)
+def mytest():
+    print("Start")
+    for i in range(1, 10):
+        time.sleep(1)
+        print(f"{i} seconds have passed")
+
+if __name__ == '__main__':
+    mytest()
+```
+
+The `timeout` decorator also accepts a custom exception to raise on timeout:
+
+```python
+import time
+
 import timeoutd
 
 @timeoutd.timeout(5, exception_type=StopIteration)
@@ -61,6 +122,7 @@ You can also specify a function to be called on timeout instead of raising an ex
 
 ```python
 import time
+
 import timeoutd
 
 def add_two_numbers(i: int, j: int | None = None):
@@ -96,6 +158,7 @@ To use it, just pass `use_signals=False` to the timeout decorator function:
 
 ```python
 import time
+
 import timeoutd
 
 @timeoutd.timeout(5, use_signals=False)
