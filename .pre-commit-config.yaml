@@ -35,7 +35,7 @@ repos:
   - id: black
     name: Python formatting (black)
 - repo: https://github.com/PyCQA/docformatter
-  rev: v1.6.0.rc1
+  rev: v1.5.1
   hooks:
   - id: docformatter
     name: Python docstring formatting (docformatter)
@@ -61,14 +61,14 @@ repos:
     - flake8-builtins
     - flake8-comprehensions
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.6.0
+  rev: v2.7.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v0.991
+  rev: v1.0.1
   hooks:
   - id: mypy
     name: Static typechecking (mypy)
@@ -80,7 +80,7 @@ repos:
     exclude: ^tests/
     name: Security linting (bandit)
 - repo: https://github.com/pycqa/pylint
-  rev: v2.16.1
+  rev: v2.16.2
   hooks:
   - id: pylint
     name: Linting Python code (pylint)
