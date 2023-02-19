@@ -1,6 +1,7 @@
 name: Pre-commit auto-update
 
 on:
+  workflow_dispatch:
   schedule:
   - cron: 0 0 * * 0  # every Sunday at midnight
 
@@ -11,9 +12,9 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
     - name: Install pre-commit
@@ -25,9 +26,11 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: update/pre-commit-autoupdate
+        delete-branch: true
         title: Auto-update pre-commit hooks
         commit-message: Auto-update pre-commit hooks
         body: |
           Update versions of tools in pre-commit
           configs to latest version
         labels: dependencies
+        reviewers: juhannc
