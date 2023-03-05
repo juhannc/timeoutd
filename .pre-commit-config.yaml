@@ -80,7 +80,7 @@ repos:
     exclude: ^tests/
     name: Security linting (bandit)
 - repo: https://github.com/pycqa/pylint
-  rev: v2.16.2
+  rev: v2.16.3
   hooks:
   - id: pylint
     name: Linting Python code (pylint)
