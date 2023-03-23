@@ -26,13 +26,13 @@ def test_timeout_decorator_arg(use_signals):
 
 
 def test_timeout_class_method(use_signals):
-    class c:
+    class C:
         @timeout(seconds=TIMEOUT, use_signals=use_signals)
         def f(self):
             time.sleep(2)
 
     with pytest.raises(TimeoutError):
-        c().f()
+        C().f()
 
 
 def test_timeout_kwargs(use_signals):

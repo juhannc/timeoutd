@@ -17,7 +17,7 @@ repos:
     name: Fixing common spelling mistakes
     args:
     - --write-changes
-    - -L compiletime
+    - -L timeoutd
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.33.0
   hooks:
@@ -60,6 +60,22 @@ repos:
     - flake8-bugbear
     - flake8-builtins
     - flake8-comprehensions
+    - flake8-simplify
+    - pep8-naming
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: v0.0.258
+  hooks:
+  - id: ruff
+    name: Linting Python code (ruff)
+    args: [--fix, --exit-non-zero-on-fix]
+- repo: https://github.com/pycqa/pylint
+  rev: v2.17.1
+  hooks:
+  - id: pylint
+    name: Linting Python code (pylint)
+    exclude: ^tests/
+    args:
+    - --fail-under=9
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
   rev: v2.8.0
   hooks:
@@ -79,11 +95,3 @@ repos:
   - id: bandit
     exclude: ^tests/
     name: Security linting (bandit)
-- repo: https://github.com/pycqa/pylint
-  rev: v2.17.0
-  hooks:
-  - id: pylint
-    name: Linting Python code (pylint)
-    exclude: ^tests/
-    args:
-    - --fail-under=9
