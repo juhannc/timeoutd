@@ -1,13 +1,14 @@
-name: pylint
+name: Python linting (pylint)
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
+    branches:
+    - main
+    - develop
 
 jobs:
-  build:
+  pylint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
