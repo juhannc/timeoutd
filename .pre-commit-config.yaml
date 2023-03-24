@@ -63,7 +63,7 @@ repos:
     - flake8-simplify
     - pep8-naming
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.0.258
+  rev: v0.0.259
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
@@ -76,6 +76,11 @@ repos:
     exclude: ^tests/
     args:
     - --fail-under=9
+- repo: https://github.com/PyCQA/prospector
+  rev: v1.9.0
+  hooks:
+  - id: prospector
+    name: Analysing Python code (prospector)
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
   rev: v2.8.0
   hooks:
