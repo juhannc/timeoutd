@@ -25,4 +25,4 @@ def time_to_seconds(
         minutes = 0
     if hours is None:
         hours = 0
-    return seconds + minutes * 60 + hours * 3600
+    return seconds + (minutes * 60) + (hours * 3600)

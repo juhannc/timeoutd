@@ -1,15 +1,16 @@
 """This module contains the wrappers for the timeout decorator."""
 from __future__ import annotations
 
+import contextlib
 import signal
 from functools import wraps
 from typing import Callable
 
 from timeoutd._timeout import _Timeout
-from timeoutd.exceptions import _raise_exception
+from timeoutd.exceptions import raise_exception
 
 
-def _signaler(
+def timeout_handler(
     function: Callable,
     seconds: float | None,
     use_signals: bool,
@@ -46,7 +47,7 @@ def _signaler(
     if use_signals:
 
         def handler(*args, **kwargs):  # pylint: disable=unused-argument
-            _raise_exception(exception_type, exception_message)
+            raise_exception(exception_type, exception_message)
 
         @wraps(function)
         def new_function(*args, **kwargs):
@@ -81,7 +82,7 @@ def _signaler(
     return new_mt_function
 
 
-def _exception_handler(
+def exception_handler(
     function: Callable,
     on_timeout: Callable,
     *,
@@ -118,5 +119,29 @@ def _exception_handler(
             return function(*args, **kwargs)
         except exception_type:
             return on_timeout(*on_timeout_args, **on_timeout_kwargs)
+
+    return new_function
+
+
+def retry_handler(
+    function: Callable,
+    retries: int,
+) -> Callable:
+    """This function retries the function if it fails.
+
+    :param function: function retry
+    :type function: Callable
+    :param retries: number of retries
+    :type retries: int
+
+    :return: wrapped function
+    """
+
+    @wraps(function)
+    def new_function(*args, **kwargs):
+        for _ in range(retries):
+            with contextlib.suppress(Exception):
+                return function(*args, **kwargs)
+        return function(*args, **kwargs)
 
     return new_function

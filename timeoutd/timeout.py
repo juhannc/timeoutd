@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from typing import Callable
 
 from timeoutd.converters import time_to_seconds
-from timeoutd.wrappers import _exception_handler, _signaler
+from timeoutd.handlers import exception_handler, retry_handler, timeout_handler
 
 
 def timeout(
@@ -16,6 +16,7 @@ def timeout(
     minutes: float | None = None,
     hours: float | None = None,
     on_timeout: Callable | None = None,
+    retries: int | None = None,
     use_signals: bool = True,
     exception_type: type = TimeoutError,
     exception_message: str | None = None,
@@ -38,6 +39,14 @@ def timeout(
         reached instead of raising an exception. If None is passed,
         the default behavior is to raise a TimeoutError exception.
     :type on_timeout: Callable | None
+    :param retries: optional number of retries to perform when the
+        timeout is reached. If None is passed, the default behavior is
+        to not retry. If a number is passed, the function will be
+        retried that number of times. If the function is retried, the
+        timeout will be reset for each retry. If retry is set to values
+        greater than 0 but no `on_timeout` function is provided, the
+        default behavior is to retry the decorated function.
+    :type retries: int | None
     :param seconds: optional time limit in seconds or fractions of a
         second. See the `limit` parameter for more information.
     :type seconds: float | None
@@ -79,27 +88,53 @@ def timeout(
         limit=limit, seconds=seconds, minutes=minutes, hours=hours
     )
 
+    _retries = retries if retries is not None else 0
+    if _retries < 0:
+        raise ValueError("retries must be greater than or equal to 0")
+    if not isinstance(_retries, int):
+        raise TypeError("retries must be an integer")
+
     def decorate(function: Callable) -> Callable:
-        if on_timeout is None:
-            return _signaler(
-                function,
-                seconds=seconds,
-                use_signals=use_signals,
-                exception_type=exception_type,
-                exception_message=exception_message,
-            )
-        return _exception_handler(
-            _signaler(
-                function,
-                seconds=seconds,
-                use_signals=use_signals,
-                exception_type=exception_type,
-                exception_message=exception_message,
-            ),
-            on_timeout=on_timeout,
+        """Decorate a function with a timeout."""
+        handled_timeout = timeout_handler(
+            function,
+            seconds=seconds,
+            use_signals=use_signals,
             exception_type=exception_type,
-            on_timeout_args=on_timeout_args,
-            on_timeout_kwargs=on_timeout_kwargs,
+            exception_message=exception_message,
+        )
+
+        if _retries == 0:
+            if on_timeout is None:
+                return handled_timeout
+            return exception_handler(
+                handled_timeout,
+                on_timeout=on_timeout,
+                exception_type=exception_type,
+                on_timeout_args=on_timeout_args,
+                on_timeout_kwargs=on_timeout_kwargs,
+            )
+
+        if on_timeout is None:
+            return retry_handler(
+                exception_handler(
+                    handled_timeout,
+                    on_timeout=handled_timeout,
+                    exception_type=exception_type,
+                    on_timeout_args=on_timeout_args,
+                    on_timeout_kwargs=on_timeout_kwargs,
+                ),
+                retries=_retries,
+            )
+        return retry_handler(
+            exception_handler(
+                handled_timeout,
+                on_timeout=on_timeout,
+                exception_type=exception_type,
+                on_timeout_args=on_timeout_args,
+                on_timeout_kwargs=on_timeout_kwargs,
+            ),
+            retries=_retries,
         )
 
     return decorate

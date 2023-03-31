@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 
-def _raise_exception(exception: type, exception_message: str | None):
+def raise_exception(exception: type, exception_message: str | None):
     """This function checks if a exception message is given.
 
     If there is no exception message, the default behavior is

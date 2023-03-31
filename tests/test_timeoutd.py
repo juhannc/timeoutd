@@ -35,7 +35,7 @@ def test_timeout_class_method(use_signals):
         C().f()
 
 
-def test_timeout_kwargs(use_signals):
+def test_timeout_undefined_kwargs(use_signals):
     @timeout(seconds=0.3, use_signals=use_signals)
     def f():
         time.sleep(0.2)
@@ -193,6 +193,28 @@ def test_timeout_custom_on_timeout(use_signals):
     assert f() == 0
 
 
+def test_timeout_with_args(use_signals):
+    @timeout(
+        seconds=TIMEOUT,
+        use_signals=use_signals,
+    )
+    def f(i, j):
+        return i + j
+
+    assert f(1, 2) == 3
+
+
+def test_timeout_with_kwargs(use_signals):
+    @timeout(
+        seconds=TIMEOUT,
+        use_signals=use_signals,
+    )
+    def f(i, j):
+        return i + j
+
+    assert f(i=1, j=2) == 3
+
+
 def test_timeout_custom_on_timeout_with_args(use_signals):
     def on_timeout(i, j):
         return i + j
@@ -259,12 +281,40 @@ def test_timeout_pickle_error():
 # fmt: on
 
 
+def test_timeout_non_exception_types_raise_exception(use_signals):
+    with pytest.raises(
+        TypeError, match="^exception_type must be a subclass of Exception$"
+    ):
+
+        @timeout(seconds=TIMEOUT, exception_type=int)
+        def f():
+            pass
+
+
+def test_timeout_negative_retries_raise_exception(use_signals):
+    with pytest.raises(
+        ValueError, match="^retries must be greater than or equal to 0$"
+    ):
+
+        @timeout(seconds=TIMEOUT, retries=-1)
+        def f():
+            pass
+
+
+def test_timeout_non_int_retries_raise_exception(use_signals):
+    with pytest.raises(TypeError, match="^retries must be an integer$"):
+
+        @timeout(seconds=TIMEOUT, retries=1.1)
+        def f():
+            pass
+
+
 def test_timeout_custom_exception_message():
     @timeout(seconds=TIMEOUT, exception_message=EXCEPTION_MESSAGE)
     def f():
         time.sleep(2)
 
-    with pytest.raises(TimeoutError, match=EXCEPTION_MESSAGE):
+    with pytest.raises(TimeoutError, match=f"^{EXCEPTION_MESSAGE}$"):
         f()
 
 
@@ -277,13 +327,5 @@ def test_timeout_custom_exception_with_message():
     def f():
         time.sleep(2)
 
-    with pytest.raises(RuntimeError, match=EXCEPTION_MESSAGE):
+    with pytest.raises(RuntimeError, match=f"^{EXCEPTION_MESSAGE}$"):
         f()
-
-
-def test_timeout_exception_is_of_wrong_type():
-    with pytest.raises(TypeError):
-
-        @timeout(seconds=TIMEOUT, exception_type=str)
-        def f():
-            time.sleep(2)

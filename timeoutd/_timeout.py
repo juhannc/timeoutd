@@ -6,7 +6,7 @@ import sys
 import time
 from typing import Callable
 
-from timeoutd.exceptions import _raise_exception
+from timeoutd.exceptions import raise_exception
 
 
 def _target(queue, function, *args, **kwargs) -> None:
@@ -90,7 +90,7 @@ class _Timeout:
         if self.__process.is_alive():
             self.__process.terminate()
 
-        _raise_exception(self.__exception_type, self.__exception_message)
+        raise_exception(self.__exception_type, self.__exception_message)
 
     @property
     def ready(self):

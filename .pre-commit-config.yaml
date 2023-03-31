@@ -3,11 +3,16 @@ repos:
   rev: v4.4.0
   hooks:
   - id: check-ast
+  - id: check-builtin-literals
   - id: check-case-conflict
   - id: check-docstring-first
+  - id: check-executables-have-shebangs
   - id: check-json
   - id: check-merge-conflict
+  - id: check-shebang-scripts-are-executable
+  - id: check-toml
   - id: check-yaml
+  - id: debug-statements
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/codespell-project/codespell
@@ -30,7 +35,7 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/psf/black
-  rev: 23.1.0
+  rev: 23.3.0
   hooks:
   - id: black
     name: Python formatting (black)
@@ -62,6 +67,11 @@ repos:
     - flake8-comprehensions
     - flake8-simplify
     - pep8-naming
+- repo: https://github.com/asottile/yesqa
+  rev: v1.4.0
+  hooks:
+  - id: yesqa
+    name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
   rev: v0.0.259
   hooks:
