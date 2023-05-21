@@ -14,7 +14,6 @@ def raise_exception(exception: type, exception_message: str | None):
     :type exception_type: type
     :param exception_message: optional message to pass to the exception
         when the timeout is reached.
-
     :raises: exception of type exception_type.
     """
     if exception_message is None:

@@ -105,7 +105,6 @@ def exception_handler(
     :param on_timeout_kwargs: optional keyword arguments to pass to the
         on_timeout function.
     :type on_timeout_kwargs: dict
-
     :return: wrapped function
     """
     if on_timeout_args is None:
@@ -133,7 +132,6 @@ def retry_handler(
     :type function: Callable
     :param retries: number of retries
     :type retries: int
-
     :return: wrapped function
     """
 
