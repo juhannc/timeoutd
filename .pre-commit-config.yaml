@@ -40,7 +40,7 @@ repos:
   - id: black
     name: Python formatting (black)
 - repo: https://github.com/PyCQA/docformatter
-  rev: v1.6.5
+  rev: v1.7.1
   hooks:
   - id: docformatter
     name: Python docstring formatting (docformatter)
@@ -73,7 +73,7 @@ repos:
   - id: yesqa
     name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.0.267
+  rev: v0.0.269
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
@@ -87,12 +87,12 @@ repos:
     args:
     - --fail-under=9
 - repo: https://github.com/PyCQA/prospector
-  rev: 1.10.0
+  rev: 1.10.1
   hooks:
   - id: prospector
     name: Analysing Python code (prospector)
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.8.0
+  rev: v2.9.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
