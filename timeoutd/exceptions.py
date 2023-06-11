@@ -9,8 +9,8 @@ def raise_exception(exception: type, exception_message: str | None):
     maintained. If there is an exception message, the message is passed
     to the exception with the 'value' keyword.
 
-    :param exception_type: exception to raise when the timeout
-        is reached.
+    :param exception_type: exception to raise when the timeout is
+        reached.
     :type exception_type: type
     :param exception_message: optional message to pass to the exception
         when the timeout is reached.
