@@ -16,7 +16,7 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.2.4
+  rev: v2.2.5
   hooks:
   - id: codespell
     name: Fixing common spelling mistakes
@@ -24,7 +24,7 @@ repos:
     - --write-changes
     - -L timeoutd
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.34.0
+  rev: v0.35.0
   hooks:
   - id: markdownlint
     name: Fixing markdown linting errors
