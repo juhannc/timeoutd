@@ -40,7 +40,7 @@ repos:
   - id: black
     name: Python formatting (black)
 - repo: https://github.com/PyCQA/docformatter
-  rev: v1.7.2
+  rev: v1.7.3
   hooks:
   - id: docformatter
     name: Python docstring formatting (docformatter)
@@ -51,7 +51,7 @@ repos:
     name: Sorting python imports
     args: [--profile, black]
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.6.0
+  rev: v3.7.0
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
@@ -73,7 +73,7 @@ repos:
   - id: yesqa
     name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.0.272
+  rev: v0.0.275
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
@@ -99,7 +99,7 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.3.0
+  rev: v1.4.0
   hooks:
   - id: mypy
     name: Static typechecking (mypy)
