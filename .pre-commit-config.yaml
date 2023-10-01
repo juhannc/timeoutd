@@ -24,7 +24,7 @@ repos:
     - --write-changes
     - -L timeoutd
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.35.0
+  rev: v0.37.0
   hooks:
   - id: markdownlint
     name: Fixing markdown linting errors
@@ -35,7 +35,7 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/psf/black
-  rev: 23.7.0
+  rev: 23.9.1
   hooks:
   - id: black
     name: Python formatting (black)
@@ -51,7 +51,7 @@ repos:
     name: Sorting python imports
     args: [--profile, black]
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.10.1
+  rev: v3.13.0
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
@@ -73,13 +73,13 @@ repos:
   - id: yesqa
     name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.0.286
+  rev: v0.0.291
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
     args: [--fix, --exit-non-zero-on-fix]
 - repo: https://github.com/pycqa/pylint
-  rev: v3.0.0a7
+  rev: v3.0.0b0
   hooks:
   - id: pylint
     name: Linting Python code (pylint)
