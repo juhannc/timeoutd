@@ -1,4 +1,5 @@
 """This module contains the exception thrower."""
+
 from __future__ import annotations
 
 

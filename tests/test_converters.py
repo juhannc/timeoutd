@@ -1,4 +1,5 @@
 """Timeout decorator tests."""
+
 from datetime import datetime, timedelta
 
 from timeoutd.converters import time_to_seconds
