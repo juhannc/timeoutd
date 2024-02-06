@@ -1,4 +1,5 @@
 """This module contains the class used to wrap a multithreaded function."""
+
 from __future__ import annotations
 
 import multiprocessing

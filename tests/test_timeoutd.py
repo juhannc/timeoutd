@@ -1,4 +1,5 @@
 """Timeout decorator tests."""
+
 import time
 from datetime import datetime, timedelta
 

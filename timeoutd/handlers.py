@@ -1,4 +1,5 @@
 """This module contains the wrappers for the timeout decorator."""
+
 from __future__ import annotations
 
 import contextlib

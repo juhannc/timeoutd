@@ -24,7 +24,7 @@ repos:
     - --write-changes
     - -L timeoutd
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.38.0
+  rev: v0.39.0
   hooks:
   - id: markdownlint
     name: Fixing markdown linting errors
@@ -35,7 +35,7 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/psf/black
-  rev: 23.12.1
+  rev: 24.1.1
   hooks:
   - id: black
     name: Python formatting (black)
@@ -57,7 +57,7 @@ repos:
     name: Upgrade common mistakes
     args: [--py38-plus]
 - repo: https://github.com/PyCQA/flake8
-  rev: 6.1.0
+  rev: 7.0.0
   hooks:
   - id: flake8
     name: Linting Python code (flake8)
@@ -73,7 +73,7 @@ repos:
   - id: yesqa
     name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.1.9
+  rev: v0.1.15
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
@@ -105,7 +105,7 @@ repos:
     name: Static typechecking (mypy)
     exclude: ^tests/
 - repo: https://github.com/PyCQA/bandit
-  rev: 1.7.6
+  rev: 1.7.7
   hooks:
   - id: bandit
     exclude: ^tests/
