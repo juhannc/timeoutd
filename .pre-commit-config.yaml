@@ -51,13 +51,13 @@ repos:
     name: Sorting python imports
     args: [--profile, black]
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.15.2
+  rev: v3.16.0
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
     args: [--py38-plus]
 - repo: https://github.com/PyCQA/flake8
-  rev: 7.0.0
+  rev: 7.1.0
   hooks:
   - id: flake8
     name: Linting Python code (flake8)
@@ -73,13 +73,13 @@ repos:
   - id: yesqa
     name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.4.7
+  rev: v0.5.0
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
     args: [--fix, --exit-non-zero-on-fix]
 - repo: https://github.com/pycqa/pylint
-  rev: v3.2.2
+  rev: v3.2.4
   hooks:
   - id: pylint
     name: Linting Python code (pylint)
@@ -99,13 +99,13 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.10.0
+  rev: v1.10.1
   hooks:
   - id: mypy
     name: Static typechecking (mypy)
     exclude: ^tests/
 - repo: https://github.com/PyCQA/bandit
-  rev: 1.7.8
+  rev: 1.7.9
   hooks:
   - id: bandit
     exclude: ^tests/
