@@ -268,6 +268,7 @@ def test_timeout_custom_on_timeout_with_args_and_kwargs(use_signals):
 # fmt: off
 def test_timeout_pickle_error():
     """Test that when a pickle error occurs a timeout error is raised."""
+
     @timeout(seconds=TIMEOUT, use_signals=False)
     def f():
         time.sleep(0.1)
