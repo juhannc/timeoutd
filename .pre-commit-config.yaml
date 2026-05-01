@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
+  rev: v6.0.0
   hooks:
   - id: check-ast
   - id: check-builtin-literals
@@ -16,7 +16,7 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.3.0
+  rev: v2.4.2
   hooks:
   - id: codespell
     name: Fixing common spelling mistakes
@@ -24,7 +24,7 @@ repos:
     - --write-changes
     - -L timeoutd
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.41.0
+  rev: v0.48.0
   hooks:
   - id: markdownlint
     name: Fixing markdown linting errors
@@ -35,29 +35,29 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/psf/black
-  rev: 24.8.0
+  rev: 26.3.1
   hooks:
   - id: black
     name: Python formatting (black)
 - repo: https://github.com/PyCQA/docformatter
-  rev: v1.7.5
+  rev: v1.7.8
   hooks:
   - id: docformatter
     name: Python docstring formatting (docformatter)
 - repo: https://github.com/pycqa/isort
-  rev: 5.13.2
+  rev: 9.0.0a3
   hooks:
   - id: isort
     name: Sorting python imports
     args: [--profile, black]
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.17.0
+  rev: v3.21.2
   hooks:
   - id: pyupgrade
     name: Upgrade common mistakes
     args: [--py38-plus]
 - repo: https://github.com/PyCQA/flake8
-  rev: 7.1.1
+  rev: 7.3.0
   hooks:
   - id: flake8
     name: Linting Python code (flake8)
@@ -73,13 +73,13 @@ repos:
   - id: yesqa
     name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.6.3
+  rev: v0.15.12
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
     args: [--fix, --exit-non-zero-on-fix]
 - repo: https://github.com/pycqa/pylint
-  rev: v3.2.7
+  rev: v4.0.5
   hooks:
   - id: pylint
     name: Linting Python code (pylint)
@@ -87,25 +87,25 @@ repos:
     args:
     - --fail-under=9
 - repo: https://github.com/PyCQA/prospector
-  rev: v1.10.3
+  rev: v1.18.0
   hooks:
   - id: prospector
     name: Analysing Python code (prospector)
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.14.0
+  rev: v2.16.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.11.2
+  rev: v1.20.2
   hooks:
   - id: mypy
     name: Static typechecking (mypy)
     exclude: ^tests/
 - repo: https://github.com/PyCQA/bandit
-  rev: 1.7.9
+  rev: 1.9.4
   hooks:
   - id: bandit
     exclude: ^tests/
