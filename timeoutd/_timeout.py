@@ -5,7 +5,7 @@ from __future__ import annotations
 import multiprocessing
 import sys
 import time
-from typing import Callable
+from collections.abc import Callable
 
 from timeoutd.exceptions import raise_exception
 
