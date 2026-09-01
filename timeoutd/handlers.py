@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import contextlib
 import signal
+from collections.abc import Callable
 from functools import wraps
-from typing import Callable
 
 from timeoutd._timeout import _Timeout
 from timeoutd.exceptions import raise_exception
