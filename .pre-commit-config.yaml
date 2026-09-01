@@ -16,7 +16,7 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.4.2
+  rev: v2.4.3
   hooks:
   - id: codespell
     name: Fixing common spelling mistakes
@@ -24,7 +24,7 @@ repos:
     - --write-changes
     - -L timeoutd
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.48.0
+  rev: v0.49.1
   hooks:
   - id: markdownlint
     name: Fixing markdown linting errors
@@ -35,7 +35,7 @@ repos:
   - id: absolufy-imports
     name: Make python imports absolute
 - repo: https://github.com/psf/black
-  rev: 26.3.1
+  rev: 26.5.1
   hooks:
   - id: black
     name: Python formatting (black)
@@ -45,7 +45,7 @@ repos:
   - id: docformatter
     name: Python docstring formatting (docformatter)
 - repo: https://github.com/pycqa/isort
-  rev: 9.0.0a3
+  rev: 9.0.1
   hooks:
   - id: isort
     name: Sorting python imports
@@ -73,13 +73,13 @@ repos:
   - id: yesqa
     name: Remove unnecessary noqa comments
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.15.12
+  rev: v0.16.5
   hooks:
   - id: ruff
     name: Linting Python code (ruff)
     args: [--fix, --exit-non-zero-on-fix]
 - repo: https://github.com/pycqa/pylint
-  rev: v4.0.5
+  rev: v4.0.8
   hooks:
   - id: pylint
     name: Linting Python code (pylint)
@@ -87,7 +87,7 @@ repos:
     args:
     - --fail-under=9
 - repo: https://github.com/PyCQA/prospector
-  rev: v1.18.0
+  rev: v1.19.1
   hooks:
   - id: prospector
     name: Analysing Python code (prospector)
@@ -99,7 +99,7 @@ repos:
   - id: pretty-format-toml
     args: [--autofix]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.20.2
+  rev: v2.3.1
   hooks:
   - id: mypy
     name: Static typechecking (mypy)
