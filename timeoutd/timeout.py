@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from datetime import datetime, timedelta
-from typing import Callable
 
 from timeoutd.converters import time_to_seconds
 from timeoutd.handlers import exception_handler, retry_handler, timeout_handler
